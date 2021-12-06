@@ -17,21 +17,12 @@
       <div class="card-body">
         <div class="row">
           <div class="mb-3">
-            {% if settings_data['trading'] == 'stop' %}
-              <label for="email">Trading is running. Stop trading?</label>
-              <div class="input-group">
-                <a href="/settings?command=stop">
-                  <button class="btn btn-danger" type="button">Stop</button>
-                </a>
-              </div>
-            {% else %}
               <label for="email">Trading is stopped. Start trading?</label>
               <div class="input-group">
                 <a href="/settings?command=start">
                   <button class="btn btn-success" type="button">Start</button>
                 </a>
               </div>
-            {% endif %}   
           </div>
         </div>
       </div>
@@ -66,15 +57,13 @@
                   </tr>
                 </thead>
                 <tbody>
-                  {% for settings_data_item in settings_data['traded_coins_list'] %}
                     <tr>
-                      <th class="text-gray-900" scope="row">{{ settings_data_item['symbol'] }}</th>
-                      <td class="fw-bolder text-gray-500">{{ settings_data_item['rsi'] }}</td>
-                      <td class="fw-bolder text-gray-500">{{ settings_data_item['status'] }}</td>
-                      <td class="fw-bolder text-gray-500">{{ settings_data_item['quantity'] }}</td>
+                      <th class="text-gray-900" scope="row">BTC#1</th>
+                      <td class="fw-bolder text-gray-500">1h</td>
+                      <td class="fw-bolder text-gray-500">watching for entry</td>
+                      <td class="fw-bolder text-gray-500">0</td>
                       <td class="fw-bolder text-gray-500">
-                        {% if settings_data_item['active'] == '1' %}
-                        <a href="/settings?command=deactivate&symbol={{ settings_data_item['symbol'].replace('#', '-') }}">
+                        <a href="">
                           <input
                             class="form-check-input"
                             type="checkbox"
@@ -83,27 +72,16 @@
                             checked
                           />
                         </a>
-                        {% else %}
-                        <a href="/settings?command=activate&symbol={{ settings_data_item['symbol'].replace('#', '-') }}">
-                          <input
-                            class="form-check-input"
-                            type="checkbox"
-                            value=""
-                            id="defaultCheck1"
-                          />
-                        </a>
-                        {% endif %}   
                       </td>
-                      <td class="fw-bolder text-gray-500">${{ settings_data_item['profit'] }}</td>
+                      <td class="fw-bolder text-gray-500">$0</td>
                       <td class="fw-bolder text-gray-500">
-                        <a href="/settings?command=remove&symbol={{ settings_data_item['symbol'].replace('#', '-') }}">
+                        <a href="">
                           <button class="btn btn-danger" type="button">
                             Remove
                           </button>
                         </a>
                       </td>
                     </tr>
-                  {% endfor %}
                 </tbody>
               </table>
             </div>

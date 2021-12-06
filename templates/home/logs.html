@@ -41,11 +41,15 @@ textarea
                             </div>
                         </div>                        
                         <ul style="list-style-type: none;">
-                        {% for log_file in logs_data['log_files'] %}
                             <li>
-                                <a href="/logs?filename={{ log_file.replace('#', '-') }}" style="color: #1B68D3 !important;text-decoration: underline;">{{ log_file }}</a>
+                                <a href="" style="color: #1B68D3 !important;text-decoration: underline;">log_file1.csv</a>
+                            </li>    
+                            <li>
+                                <a href="" style="color: #1B68D3 !important;text-decoration: underline;">log_file2.csv</a>
+                            </li>    
+                            <li>
+                                <a href="" style="color: #1B68D3 !important;text-decoration: underline;">log_file3.csv</a>
                             </li>     
-                        {% endfor %}
                         </ul>
                     </div>
                 </div>
@@ -55,17 +59,7 @@ textarea
             <div class="card border-0 shadow">
                 <div class="card-body">
                     <div class="textwrapper">
-                        {% if logs_data['log_file_name']|length > 0 %}
-                            Showing last 100 lines for file <b>{{ logs_data['log_file_name'] }}</b>
-                            <textarea style="background-color: black; color: white;" cols="2" rows="20" id="rules">{{ logs_data['log_file_content'] }}</textarea>
-                            {% if logs_data['log_file_name'].endswith(".csv") %}
-                                <a href="/logs/download?filename={{ logs_data['log_file_name'].replace('#', '-') }}">
-                                    <button class="btn btn-info" type="button">Download this file</button>                                
-                                </a>
-                            {% endif %}       
-                        {% else %}
                             Pick a file from the list...
-                        {% endif %}                        
                     </div>
                 </div>
             </div>

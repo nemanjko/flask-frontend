@@ -35,7 +35,7 @@
                         <div class="col-12 col-xl-7 px-xl-0">
                             <div class="d-none d-sm-block">
                                 <h2 class="h6 text-gray-400 mb-0">Total Profit</h2>
-                                <h3 class="fw-extrabold mb-2">${{ dashboard_data['total_profit'] }}</h3>
+                                <h3 class="fw-extrabold mb-2">$500</h3>
                             </div>
                         </div>
                     </div>
@@ -54,7 +54,7 @@
                         <div class="col-12 col-xl-7 px-xl-0">
                             <div class="d-none d-sm-block">
                                 <h2 class="h6 text-gray-400 mb-0">Number of coins traded</h2>
-                                <h3 class="fw-extrabold mb-2">{{ dashboard_data['traded_coins_numb'] }}</h3>
+                                <h3 class="fw-extrabold mb-2">1</h3>
                             </div>
                         </div>
                     </div>
@@ -73,7 +73,7 @@
                         <div class="col-12 col-xl-7 px-xl-0">
                             <div class="d-none d-sm-block">
                                 <h2 class="h6 text-gray-400 mb-0">Remaining cash</h2>
-                                <h3 class="fw-extrabold mb-2">${{ dashboard_data['remaining_cash'] }}</h3>
+                                <h3 class="fw-extrabold mb-2">$10000</h3>
                             </div>
                         </div>
                     </div>
@@ -106,28 +106,26 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {% for dashboard_data_item in dashboard_data['traded_coins_list'] %}
                                     <tr>
                                         <th class="text-gray-900" scope="row">
-                                            {{ dashboard_data_item['symbol'] }}
+                                            BTC#1
                                         </th>
                                         <td class="fw-bolder text-gray-500">
-                                            {{ dashboard_data_item['rsi'] }}
+                                            1h
                                         </td>
                                         <td class="fw-bolder text-gray-500">
-                                            {{ dashboard_data_item['status'] }}
+                                            watching fro entry
                                         </td>
                                         <td class="fw-bolder text-gray-500">
-                                            {{ dashboard_data_item['quantity'] }}
+                                            0
                                         </td>
                                         <td class="fw-bolder text-gray-500">
-                                            {{ dashboard_data_item['active'] }}
+                                            1
                                         </td>
                                         <td class="fw-bolder text-gray-500">
-                                            ${{ dashboard_data_item['profit'] }}
+                                            $0
                                         </td>
                                     </tr>     
-                                {% endfor %}
                                 </tbody>
                             </table>
                         </div>
@@ -156,8 +154,8 @@
 new Chart(document.getElementById("myChart"), {
   type: 'line',
   data: {
-    labels: {{ dashboard_data['labels'] | safe }},
-    datasets: [{{ dashboard_data['chart_values'] | safe }}]
+    labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sept','Oct','Nov','Dec'],
+    datasets: ['0','15','30','250','89','120','140','560','430','309','99','34']
   },
   options: {
     hover: {
