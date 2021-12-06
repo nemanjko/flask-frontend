@@ -1,0 +1,78 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Dashboard {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+<style>
+textarea
+{
+  width:100%;
+}
+.textwrapper
+{
+  border:1px solid #999999;
+  margin:5px 0;
+  padding:3px;
+}
+</style>
+{% endblock stylesheets %}
+
+{% block content %}
+
+    <div class="py-4">
+        <div class="d-flex justify-content-between w-100 flex-wrap">
+            <div class="mb-3 mb-lg-0">
+            <h1 class="h4">LOGS - See how Miss Piggy is wasting your money </h1>
+            </div>
+        </div>
+    </div>
+   
+    <div class="row">
+        <div class="col-2 col-xl-2 mb-4 mt-4" style="min-width: 300px;">
+            <div class="row">
+                <div class="col-12 mb-4">
+                    <div class="card border-0 shadow">
+                        <div class="card-header">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <h2 class="fs-5 fw-bold mb-0">Log Files</h2>
+                                </div>
+                            </div>
+                        </div>                        
+                        <ul style="list-style-type: none;">
+                        {% for log_file in logs_data['log_files'] %}
+                            <li>
+                                <a href="/logs?filename={{ log_file.replace('#', '-') }}" style="color: #1B68D3 !important;text-decoration: underline;">{{ log_file }}</a>
+                            </li>     
+                        {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-sm-6 col-xl-8 mb-4 mt-4">
+            <div class="card border-0 shadow">
+                <div class="card-body">
+                    <div class="textwrapper">
+                        {% if logs_data['log_file_name']|length > 0 %}
+                            Showing last 100 lines for file <b>{{ logs_data['log_file_name'] }}</b>
+                            <textarea style="background-color: black; color: white;" cols="2" rows="20" id="rules">{{ logs_data['log_file_content'] }}</textarea>
+                            {% if logs_data['log_file_name'].endswith(".csv") %}
+                                <a href="/logs/download?filename={{ logs_data['log_file_name'].replace('#', '-') }}">
+                                    <button class="btn btn-info" type="button">Download this file</button>                                
+                                </a>
+                            {% endif %}       
+                        {% else %}
+                            Pick a file from the list...
+                        {% endif %}                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

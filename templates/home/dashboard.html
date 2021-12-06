@@ -1,0 +1,171 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Dashboard {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <div class="py-4">
+        <div class="d-flex justify-content-between w-100 flex-wrap">
+            <div class="mb-3 mb-lg-0">
+            <h1 class="h4">DASHBOARD - Miss Piggy in a (large) nutshell </h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 mb-4 mt-4">
+            <div class="card bg-yellow-100 border-0 shadow">
+                <div class="card-body p-2">
+                    <canvas id="myChart" width="200" height="50"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-sm-6 col-xl-4 mb-4">
+            <div class="card border-0 shadow">
+                <div class="card-body">
+                    <div class="row d-block d-xl-flex align-items-center">
+                        <div class="col-12 col-xl-5 text-xl-center mb-3 mb-xl-0 d-flex align-items-center justify-content-xl-center">
+                            <div class="icon-shape icon-shape-primary rounded me-4 me-sm-0">
+                                <img src="static/assets/img/abacus.png">
+                            </div>
+                        </div>
+                        <div class="col-12 col-xl-7 px-xl-0">
+                            <div class="d-none d-sm-block">
+                                <h2 class="h6 text-gray-400 mb-0">Total Profit</h2>
+                                <h3 class="fw-extrabold mb-2">${{ dashboard_data['total_profit'] }}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-sm-6 col-xl-4 mb-4">
+            <div class="card border-0 shadow">
+                <div class="card-body">
+                    <div class="row d-block d-xl-flex align-items-center">
+                        <div class="col-12 col-xl-5 text-xl-center mb-3 mb-xl-0 d-flex align-items-center justify-content-xl-center">
+                            <div class="icon-shape icon-shape-secondary rounded me-4 me-sm-0">
+                                <img src="static/assets/img/from-a-to-z.png">
+                            </div>
+                        </div>
+                        <div class="col-12 col-xl-7 px-xl-0">
+                            <div class="d-none d-sm-block">
+                                <h2 class="h6 text-gray-400 mb-0">Number of coins traded</h2>
+                                <h3 class="fw-extrabold mb-2">{{ dashboard_data['traded_coins_numb'] }}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-sm-6 col-xl-4 mb-4">
+            <div class="card border-0 shadow">
+                <div class="card-body">
+                    <div class="row d-block d-xl-flex align-items-center">
+                        <div class="col-12 col-xl-5 text-xl-center mb-3 mb-xl-0 d-flex align-items-center justify-content-xl-center">
+                            <div class="icon-shape icon-shape-tertiary rounded me-4 me-sm-0">
+                                <img src="static/assets/img/profits.png">
+                            </div>
+                        </div>
+                        <div class="col-12 col-xl-7 px-xl-0">
+                            <div class="d-none d-sm-block">
+                                <h2 class="h6 text-gray-400 mb-0">Remaining cash</h2>
+                                <h3 class="fw-extrabold mb-2">${{ dashboard_data['remaining_cash'] }}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-xl-8">
+            <div class="row">
+                <div class="col-12 mb-4">
+                    <div class="card border-0 shadow">
+                        <div class="card-header">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <h2 class="fs-5 fw-bold mb-0">Traded Coins</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table align-items-center table-flush">
+                                <thead class="thead-light">
+                                <tr>
+                                    <th class="border-bottom" scope="col">Symbol</th>
+                                    <th class="border-bottom" scope="col">RSI Interval</th>
+                                    <th class="border-bottom" scope="col">Status</th>
+                                    <th class="border-bottom" scope="col">Quantity</th>
+                                    <th class="border-bottom" scope="col">Active</th>
+                                    <th class="border-bottom" scope="col">Profit</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for dashboard_data_item in dashboard_data['traded_coins_list'] %}
+                                    <tr>
+                                        <th class="text-gray-900" scope="row">
+                                            {{ dashboard_data_item['symbol'] }}
+                                        </th>
+                                        <td class="fw-bolder text-gray-500">
+                                            {{ dashboard_data_item['rsi'] }}
+                                        </td>
+                                        <td class="fw-bolder text-gray-500">
+                                            {{ dashboard_data_item['status'] }}
+                                        </td>
+                                        <td class="fw-bolder text-gray-500">
+                                            {{ dashboard_data_item['quantity'] }}
+                                        </td>
+                                        <td class="fw-bolder text-gray-500">
+                                            {{ dashboard_data_item['active'] }}
+                                        </td>
+                                        <td class="fw-bolder text-gray-500">
+                                            ${{ dashboard_data_item['profit'] }}
+                                        </td>
+                                    </tr>     
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-sm-6 col-xl-4 mb-4">
+            <div class="card border-0 shadow">
+                <div class="card-body">
+                    <div class="row d-block d-xl-flex align-items-center">
+                        <img src="https://alternative.me/crypto/fear-and-greed-index.png" alt="Latest Crypto Fear & Greed Index" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+<script type="text/javascript">
+ 
+// Line chart
+new Chart(document.getElementById("myChart"), {
+  type: 'line',
+  data: {
+    labels: {{ dashboard_data['labels'] | safe }},
+    datasets: [{{ dashboard_data['chart_values'] | safe }}]
+  },
+  options: {
+    hover: {
+     mode: 'index',
+     intersect: true
+    },
+  }
+});
+
+</script>
+{% endblock javascripts %}

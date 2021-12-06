@@ -1,0 +1,164 @@
+{% extends "layouts/base.html" %} {% block title %} UI Forms {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %} {% block content %}
+
+<div class="py-4">
+  <div class="d-flex justify-content-between w-100 flex-wrap">
+    <div class="mb-3 mb-lg-0">
+      <h1 class="h4">SETTINGS - Control how naughty Miss Piggy should be</h1>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12 mb-4">
+    <div class="card border-0 shadow components-section">
+      <div class="card-body">
+        <div class="row">
+          <div class="mb-3">
+            {% if settings_data['trading'] == 'stop' %}
+              <label for="email">Trading is running. Stop trading?</label>
+              <div class="input-group">
+                <a href="/settings?command=stop">
+                  <button class="btn btn-danger" type="button">Stop</button>
+                </a>
+              </div>
+            {% else %}
+              <label for="email">Trading is stopped. Start trading?</label>
+              <div class="input-group">
+                <a href="/settings?command=start">
+                  <button class="btn btn-success" type="button">Start</button>
+                </a>
+              </div>
+            {% endif %}   
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12 mb-4">
+    <div class="card border-0 shadow components-section">
+      <div class="card-body">
+        <div class="row">
+          <div class="card border-0 shadow">
+            <div class="card-header">
+              <div class="row align-items-center">
+                <div class="col">
+                  <h2 class="fs-5 fw-bold mb-0">Traded Coins</h2>
+                </div>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="table align-items-center table-flush">
+                <thead class="thead-light">
+                  <tr>
+                    <th class="border-bottom" scope="col">Symbol</th>
+                    <th class="border-bottom" scope="col">RSI Interval</th>
+                    <th class="border-bottom" scope="col">Status</th>
+                    <th class="border-bottom" scope="col">Quantity</th>
+                    <th class="border-bottom" scope="col">Active</th>
+                    <th class="border-bottom" scope="col">Profit</th>
+                    <th class="border-bottom" scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for settings_data_item in settings_data['traded_coins_list'] %}
+                    <tr>
+                      <th class="text-gray-900" scope="row">{{ settings_data_item['symbol'] }}</th>
+                      <td class="fw-bolder text-gray-500">{{ settings_data_item['rsi'] }}</td>
+                      <td class="fw-bolder text-gray-500">{{ settings_data_item['status'] }}</td>
+                      <td class="fw-bolder text-gray-500">{{ settings_data_item['quantity'] }}</td>
+                      <td class="fw-bolder text-gray-500">
+                        {% if settings_data_item['active'] == '1' %}
+                        <a href="/settings?command=deactivate&symbol={{ settings_data_item['symbol'].replace('#', '-') }}">
+                          <input
+                            class="form-check-input"
+                            type="checkbox"
+                            value=""
+                            id="defaultCheck1"
+                            checked
+                          />
+                        </a>
+                        {% else %}
+                        <a href="/settings?command=activate&symbol={{ settings_data_item['symbol'].replace('#', '-') }}">
+                          <input
+                            class="form-check-input"
+                            type="checkbox"
+                            value=""
+                            id="defaultCheck1"
+                          />
+                        </a>
+                        {% endif %}   
+                      </td>
+                      <td class="fw-bolder text-gray-500">${{ settings_data_item['profit'] }}</td>
+                      <td class="fw-bolder text-gray-500">
+                        <a href="/settings?command=remove&symbol={{ settings_data_item['symbol'].replace('#', '-') }}">
+                          <button class="btn btn-danger" type="button">
+                            Remove
+                          </button>
+                        </a>
+                      </td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12 mb-4">
+    <div class="card border-0 shadow components-section">
+      <div class="card-body">
+        <div class="row">
+          <div class="mb-3">
+            <label for="email">Add new coin</label>
+          </div>
+        </div>
+        <form method="POST">
+          <div class="row">
+            <div class="col-lg-2 col-md-6">
+              <div class="input-group">
+                <small class="text-muted" style="margin-right: 10px; margin-top: 6px">Our symbol ID</small>
+                <input class="form-control" id="our_symbol" name="our_symbol" placeholder="e.g. BTC#8"/>
+              </div>
+            </div>
+            <div class="col-lg-2 col-md-6">
+              <div class="input-group">
+                <small class="text-muted" style="margin-right: 10px; margin-top: 6px">Coin symbol</small>
+                <input class="form-control" id="symbol" name="symbol" placeholder="e.g. BTC"/>
+              </div>
+            </div>
+            <div class="col-lg-2 col-md-6">
+              <div class="input-group">
+              <small class="text-muted" style="margin-right: 10px; margin-top: 6px">RSI interval</small>
+              <input class="form-control" id="rsi" name="rsi" placeholder="e.g. 1h"/>
+              <small class="text-muted" style="margin-right: 10px; margin-top: 6px">(allowed values: 1m, 5m, 15m, 30m, 1h, 2h, 4h, 12h, 1d, 1w)</small>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="row mb-5 mb-lg-5">
+              <div class="col-lg-3 col-md-6">
+                <input class="btn btn-success" type="submit" value="Save">
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}
