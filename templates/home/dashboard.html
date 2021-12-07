@@ -155,7 +155,26 @@ new Chart(document.getElementById("myChart"), {
   type: 'line',
   data: {
     labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sept','Oct','Nov','Dec'],
-    datasets: ['0','15','30','250','89','120','140','560','430','309','99','34']
+    datasets: [
+              {data: 
+                 [
+                    0,
+                    15,            
+                    300,
+                    230,
+                    450,
+                    178,
+                    100,
+                    25,
+                    49,
+                    123,
+                    0,
+                    0,
+                 ],
+              label: 'profit per month',
+              borderColor: '#3e95cd',
+              fill: true}
+           ]
   },
   options: {
     hover: {
